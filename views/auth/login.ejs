@@ -1,0 +1,108 @@
+<%- include ../layouts/header.ejs %>
+<% if (typeof data !== 'undefined') { %>
+    <% var user = data %>
+    <script>
+        let user = <%- JSON.stringify(user) %>;
+        localStorage.setItem('token', JSON.stringify({'token': user}));
+        window.location.href = 'home';
+
+    </script>
+    You  have permission to see the page you're trying to reach.
+<% } else { %>
+<% } %>
+
+<body class="auth-fluid-pages pb-0">
+
+<div class="auth-fluid">
+    <!--Auth fluid left content -->
+    <div class="auth-fluid-form-box">
+        <div class="align-items-center d-flex h-100">
+            <div class="card-body">
+
+                <!-- Logo -->
+                <div class="auth-brand text-center text-lg-left">
+                    <a href="#">
+                        <span><img src="https://cdn.kiselindonesia.net:6798/topup_pls/images/logo.svg" alt="" height="40"></span>
+                    </a>
+                </div>
+
+                <!-- title-->
+                <h4 class="mt-0">Sign In</h4>
+                <p class="text-muted mb-4">Enter your username and password to continue.</p>
+
+                <!-- form -->
+                <form action="/login" method="post" id="form_login">
+                    <div class="form-group">
+                        <label for="login_username">Username</label>
+                        <input class="form-control" type="text" id="login_username" name="login_username" required="" placeholder="Enter your Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">Password</label>
+                        <input class="form-control" type="password" required="" id="login_password" name="login_password" placeholder="Enter your password">
+                    </div>
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-primary btn-block" type="submit"> <i class="mdi mdi-login"></i>Log In </button>
+                    </div>
+                </form>
+            </div> <!-- end .card-body -->
+        </div> <!-- end .align-items-center.d-flex.h-100-->
+    </div>
+    <!-- end auth-fluid-form-box-->
+
+    <!-- Auth fluid right content -->
+    <div class="auth-fluid-right text-center">
+        <div class="auth-user-testimonial">
+            <h2 class="mb-3">WELCOME!</h2>
+            <p class="lead"><i class="mdi mdi-format-quote-open"></i>PLEASE LOGIN TO START YOUR SESSION! . <i class="mdi mdi-format-quote-close"></i>
+            </p>
+            <p>
+                - KISEL
+            </p>
+        </div> <!-- end auth-user-testimonial-->
+    </div>
+    <!-- end Auth fluid right content -->
+</div>
+<!-- end auth-fluid-->
+
+<!-- App js -->
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/app.min.js"></script>
+
+</body>
+<script>
+    $(document).ready(function () {
+        login();
+    });
+
+    function login() {
+        $("#form_login").submit(function (e) {
+            showLoading();
+            e.preventDefault();
+            $.ajax({
+                url: "/auth/login",
+                type: "POST",
+                data: {
+                    login_username: $("#login_username").val(),
+                    login_password: $("#login_password").val(),
+                },
+                cache: false,
+                success: function (data) {
+                    if(data.status === "nok"){
+                        hideLoading();
+                        swal("Gagal",data.data,"error");
+                    }
+                    else{
+                        localStorage.setItem("token", data.data);
+                        $(location).attr('href', "/dashboard");
+                    }
+                },
+                error: function(error){
+                    hideLoading();
+                    swal("Gagal","Terjadi Kesalahan. Silahkan Coba Lagi","error");
+                }
+            });
+        });
+    }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<%- include ../layouts/footer.ejs %>

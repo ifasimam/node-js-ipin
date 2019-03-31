@@ -1,0 +1,97 @@
+</div>
+</div>
+<!-- END wrapper -->
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                2018 © Hyper - Coderthemes.com
+            </div>
+            <div class="col-md-6">
+                <div class="text-md-right footer-links d-none d-md-block">
+                    <a href="javascript: void(0);">About</a>
+                    <a href="javascript: void(0);">Support</a>
+                    <a href="javascript: void(0);">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end Footer -->
+
+</div>
+<!-- bundle -->
+<!--LOGOUT-->
+
+
+<!-- third party js -->
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/Chart.bundle.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+<!-- third party js ends -->
+
+<!-- third party js -->
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dropify.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/jquery.dataTables.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dataTables.bootstrap4.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dataTables.responsive.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/responsive.bootstrap4.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dataTables.buttons.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/buttons.bootstrap4.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/buttons.html5.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/buttons.flash.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/buttons.print.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dataTables.keyTable.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/dataTables.select.min.js"></script>
+<script src="https://cdn.kiselindonesia.net:6798/new_abuba/js/vendor/loading-overlay.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<!--<script src="stylesheets/loading-overlay.min.js"></script>-->
+
+
+</body>
+</div>
+</html>
+<script>
+    function menus(){
+        showLoading();
+        var statuz = localStorage.setItem("statuz","");
+
+    }
+    $(document).ready(function(){
+        $('.dropify').dropify();
+    });
+    var target = $('#target');
+
+    function showLoading() {
+        target.loadingOverlay();
+    }
+
+    function hideLoading() {
+        if (target.hasClass('loading')) {
+            target.loadingOverlay('remove');
+        }
+    }
+
+    var status = localStorage.getItem("status");
+    console.log(status);
+    if (status !== "null") {
+        swal("Sukses", status, "success");
+        localStorage.removeItem("status");
+    }
+
+    var statuz = localStorage.getItem("statuz");
+    console.log(status);
+    if (statuz !== "null") {
+
+        localStorage.removeItem("statuz");
+    }
+
+
+    function logOut() {
+        localStorage.removeItem("token");
+        $(location).attr('href', "/");
+    }
+</script>

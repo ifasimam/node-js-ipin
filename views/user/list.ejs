@@ -1,0 +1,528 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../layouts/header.ejs %>
+<%- include ../layouts/menu.ejs %>
+
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Topbar Start -->
+
+        <!-- end Topbar -->
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <form class="form-inline">
+                            </form>
+                        </div>
+                        <h4 class="page-title">User</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <!-- end row -->
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <button type="button"
+                                            class="btn btn-primary btn-rounded" data-toggle="modal"
+                                            data-target="#modal-add-user" onclick="add()"><i
+                                                class="mdi mdi-plus mr-1"></i>
+                                        <span>Tambah User</span></button>
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="grid-container">
+                                                <label for="search_username">Username</label>
+                                                <input type="text" class="form-control" id="search_username"
+                                                       placeholder="Username" aria-describedby="basic-addon1"
+                                                       name="search_username">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="grid-container">
+                                                <label for="search_role">Role</label>
+                                                <select name="search_role" id="search_role" class="add_role form-control select2"
+                                                        data-toggle="select2">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="grid-container">
+                                                <label for="add_username"></label>
+                                                <div class="input-group">
+                                                    <button id="search_data" type="button"
+                                                            class="btn btn-block btn-xs btn-primary col-lg-2">Cari
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <table id="data-table-user"
+                                   class="table table-striped table-striped table-sm table-bordered dt-responsive nowrap"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Ditambahkan Pada</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+            </div>
+            <!-- end row -->
+
+
+            <!-- end row -->
+
+        </div>
+        <!-- container -->
+
+    </div>
+    <div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!--ADD-->
+
+                <div class="modal-body" id="add_data">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Input User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form action="/user" method="post" id="form_add">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="grid-container">
+                                    <div class="form-group mb-3">
+                                        <label for="add_username">Username</label>
+                                        <input type="text" id="add_username" class="form-control" placeholder="Username"
+                                               name="add_username" required="required">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="add_password">Password</label>
+                                        <input type="password" id="add_password" class="form-control"
+                                               placeholder="Password"
+                                               name="add_password" required="required">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="grid-container">
+                                    <div class="form-group mb-3">
+                                        <label for="example-textarea">Role</label>
+                                        <select name="add_role" id="add_role" class="add_role form-control select2"
+                                                data-toggle="select2">
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="add_konfirmasi_password">Konfirmasi Password</label>
+                                        <input type="password" id="add_konfirmasi_password" class="form-control"
+                                               placeholder="Konfirmasi Password"
+                                               name="add_konfirmasi_password" onkeyup="verifikasiPass()"
+                                               required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button id="submit_add_data" type="submit" name="Submit" value="Add"
+                                        class="btn btn-block btn-primary">Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modal-edit-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" id="edit_data">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Edit User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+
+                    <!--EDIT-->
+
+                    <form id="form_edit">
+                        <input type="hidden" id="edit_id" class="form-control"
+                               name="edit_id" required="required">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="grid-container">
+                                    <div class="form-group mb-3">
+                                        <div class="form-group mb-3">
+                                            <label for="edit_username">Username</label>
+                                            <input readonly="readonly" type="text" id="edit_username"
+                                                   class="form-control"
+                                                   name="edit_username" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button id="submit_edit_data" type="submit" name="Submit" value="Add"
+                                        class="btn btn-block btn-primary">Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="form_edit">
+                        <input type="hidden" id="edit_id" class="form-control"
+                               name="edit_id" required="required">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="grid-container">
+                                    <div class="form-group mb-3">
+                                        <div class="form-group mb-3">
+                                            <label for="edit_username">Username</label>
+                                            <input readonly="readonly" type="text" id="edit_username"
+                                                   class="form-control"
+                                                   name="edit_username" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button id="submit_edit_data" type="submit" name="Submit" value="Add"
+                                        class="btn btn-block btn-primary">Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="modal-detail-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" id="detail_data">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Detail User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="grid-container">
+                                    <div class="form-group mb-3">
+                                        <label for="detail_username">Username</label>
+                                        <input readonly="readonly" type="text" id="detail_username" class="form-control"
+                                               name="detail_username">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="reset_password" class="col-xl-12 "></div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        $(document).ready(function () {
+            ProcessData();
+            getUserData();
+            GetUserRole();
+            GetUserDetail();
+        });
+
+        var userDataTables;
+
+        function getUserData() {
+            userDataTables = $('#data-table-user').DataTable(
+                {
+                    "searching": false,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": '/user/list-datatable',
+                        "headers": {'Authorization': 'Bearer ' + localStorage.token},
+                        "data": function (d) {
+                            d.username = $("#search_username").val();
+                            d.role = $("#search_role").val();
+                        }
+                    },
+                    "order": [[0, "desc"]],
+                    "columnDefs" : [
+                        {
+                            "render": function (data, type, row) {
+                                return '<td>' + moment(data).format("D MMMM YYYY") + '</td>';
+                            },
+                            "targets": 3
+                        },
+                        {
+                            "render": function (data, type, row) {
+                                return '' +
+                                    '<button style="margin : 3px" data-toggle="modal" data-target="#modal-detail-user" onclick=GetUserDetail("' + row[1] + '") type="button" class="btn btn-primary btn-sm"> <i class="mdi mdi-eye mr-1"></i> <span>Detail</span> </button>' +
+                                    '<button style="margin : 3px" data-toggle="modal" data-target="#modal-edit-user" onclick=edit("' + row[1] + '") id=edit' + row[4] + ' type="button" class="btn btn-warning btn-sm"> <i class="mdi mdi-pencil mr-1"></i> <span>Edit</span> </button>' +
+                                    '<button style="margin : 3px" data-toggle="modal" data-target="#modal-delete-user" onclick=delete("' + row[7] + '") type="button" class="btn btn-danger btn-sm"> <i class="mdi mdi-delete"></i> <span>Delete</span> </button>' +
+                                    '';
+                            },
+                            "targets": 4
+                        }
+                    ]
+                });
+            $("#search_data").click(function () {
+                userDataTables.draw();
+            });
+        }
+
+        function GetUserRole() {
+            $.ajax({
+                url: "/role/list",
+                type: "GET",
+                beforeSend: function (xhr) {
+                    if (localStorage.token) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    }
+                },
+                success: function (data) {
+                    console.log(data);
+                    $(".add_role").html("");
+                    $(".add_role").append('<option value="">--Pilih Role--</option>');
+                    $.each(data.data, function (key, value) {
+                        $(".add_role").append('<option value="' + value.id_role + '">' + value.nama + '</option>');
+                    });
+
+                    $("#edit_role").html("");
+                    $("#edit_role").append('<option value="">--Pilih Role--</option>');
+                    $.each(data.data, function (key, value) {
+                        $("#edit_role").append('<option value="' + value.id_role + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        }
+
+        function GetUserDetail(x) {
+            $.ajax({
+                url: "/user/detailuser?namaUsr=" + x,
+                type: "GET",
+                beforeSend: function (xhr) {
+                    if (localStorage.token) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    }
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#detail_username").append('haha');
+                    $.each(data.data, function (key, value) {
+                        $(".add_role").append('<option value="' + value.id_role + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        }
+
+        function ProcessData() {
+            $("#form_add").submit(function (e) {
+                showLoading();
+                e.preventDefault();
+                $.ajax({
+                    url: "/user/insert",
+                    type: "POST",
+                    data: {
+                        add_username: $("#add_username").val(),
+                        add_password: $("#add_password").val(),
+                        add_role: $("#add_role").val()
+                    },
+                    beforeSend: function (xhr) {
+                        if (localStorage.token) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                        }
+                    },
+                    success: function (data) {
+                        if (data.status === "nok") {
+                            hideLoading();
+                            var isi = "";
+                            $.each(data.data, function (key, value) {
+                                isi = isi + value + '\n';
+                            });
+                            swal("Gagal", isi, "error");
+                        }
+                        else {
+                            localStorage.setItem("status", data.data);
+                            $(location).attr('href', "/user/list");
+                        }
+                    }
+                });
+            });
+            $("#form_edit").submit(function (e) {
+                showLoading();
+                e.preventDefault();
+                $.ajax({
+                    url: "/user/detailuser",
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function (xhr) {
+                        if (localStorage.token) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                        }
+                    },
+                    success: function (data) {
+                        if (data.status === "nok") {
+                            swal("Gagal", data.data, "error");
+                        }
+                        else {
+                            localStorage.setItem("status", data.data);
+                            $(location).attr('href', "/user");
+                        }
+                        hideLoading();
+
+                    }
+                });
+
+            });
+        }
+
+        function add() {
+            $('#add_username').val("");
+            $('#add_password').val("");
+            $('#add_konfirmasi_password').val("");
+            $('#add_nama').val("");
+            $('#add_alamat').val("");
+            $('#add_NoHp').val("");
+            $('#add_email').val("");
+        }
+
+        function detail(x) {
+            if (x) {
+                $.ajax({
+                    url: "/user/detail?id=" + x,
+                    type: "get",
+                    beforeSend: function (xhr) {
+                        if (localStorage.token) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error.status);
+                        if (error.status === 401) {
+                            localStorage.removeItem("token");
+                            $(location).attr('href', "/login");
+                        }
+                    },
+                    success: function (data) {
+                        var time_created = moment(data.data.created_at).format("D MMMM YYYY - hh:mm A");
+                        var time_updated = moment(data.data.updated_at).format("D MMMM YYYY - hh:mm A");
+                        $('#detail_username').val(data.data.username);
+                        $('#detail_nama').val(data.data.name);
+                        $('#detail_alamat').val(data.data.alamat);
+                        $('#detail_NoHp').val(data.data.msisdn);
+                        $('#detail_email').val(data.data.email);
+                        $('#detail_role').val(data.data.posisi);
+                        $('#created_at').html(time_created);
+                        $('#created_by').html(data.data.created_by);
+                        $('#updated_at').html(time_updated);
+                        $('#updated_by').html(data.data.updated_by);
+                        $('#reset_password').html("");
+                        $('#reset_password').append('<button style="margin : 3px" type="button" class="btn btn-info btn-sm float-right" onclick=resetUser("' + data.data.id + '")> <i class="mdi mdi-reload mr-1"></i> <span>Reset Password</span> </button>');
+                    }
+                });
+
+            }
+
+
+        }
+
+
+        function edit(x) {
+            if (x) {
+                $.ajax({
+                    url: "/user/detail?id=" + x,
+                    type: "get",
+                    beforeSend: function (xhr) {
+                        if (localStorage.token) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error.status);
+                        if (error.status === 401) {
+                            localStorage.removeItem("token");
+                        }
+                    },
+                    success: function (data) {
+                        $('#edit_id').val(data.data.id);
+                        $('#edit_username').val(data.data.username);
+                        $('#edit_nama').val(data.data.name);
+                        $('#edit_alamat').val(data.data.alamat);
+                        $('#edit_NoHp').val(data.data.msisdn);
+                        $('#edit_email').val(data.data.email);
+                        $('#edit_role').val(data.data.id_role);
+                        $('#edit_status').val(data.data.user_status);
+                    }
+                });
+
+            }
+        }
+
+
+
+    </script>
+    <%- include ../layouts/footer.ejs %>
+</div>
